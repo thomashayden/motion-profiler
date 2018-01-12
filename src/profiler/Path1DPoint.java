@@ -2,7 +2,17 @@ package profiler;
 
 public class Path1DPoint {
 
-  double targetSpeed;
-  double targetVelocity;
+  private int time;
+  private double velocity;
+
+  public Path1DPoint(double velocity) {
+    this.velocity = velocity;
+  }
+
+  public Path1DPoint(int time, double velocity) {
+    this.time = time;
+    this.velocity = velocity;
+  }
+
 
 }
