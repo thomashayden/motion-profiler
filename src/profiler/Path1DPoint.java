@@ -14,5 +14,12 @@ public class Path1DPoint {
     this.velocity = velocity;
   }
 
+  public int getTime() {
+    return this.time;
+  }
+
+  public double getVelocity() {
+    return this.velocity;
+  }
 
 }

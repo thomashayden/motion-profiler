@@ -18,4 +18,8 @@ public class Path1D {
     path.add(point);
   }
 
+  public ArrayList<Path1DPoint> getPoints() {
+    return this.path;
+  }
+
 }

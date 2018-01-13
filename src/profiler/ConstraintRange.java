@@ -1,5 +1,10 @@
 package profiler;
 
+/*
+TODO:
+Add support for the inability for the path to reach max velocity
+ */
+
 public class ConstraintRange {
 
   private Position start;
@@ -19,6 +24,10 @@ public class ConstraintRange {
     this.maxVelocity = maxVelocity;
   }
 
+  public double getMaxVelocity() {
+    return this.maxVelocity;
+  }
+
   /**
    * Generates the optimal motion profile from this constraint range with the given end constraints
    *
@@ -36,8 +45,11 @@ public class ConstraintRange {
     } else if (isTrapezoidalPath(startVelocity, endVelocity, maxAcceleration, maxDeceleration)) {
       return generateTrapezoidalPath(startVelocity, endVelocity, maxAcceleration, maxDeceleration,
               startTime);
+    } else if(isTriangularPath(startVelocity, endVelocity, maxAcceleration, maxDeceleration)) {
+      return generateTriangularPath(startVelocity, endVelocity, maxAcceleration, maxDeceleration,
+              startTime);
     } else {
-      System.err.println("YOU STUPID!!! THIS WASN'T WHAT YOU WERE TESTING!!!");
+      System.err.println("None of the path options were chosen!");
       System.exit(0);
       return null;
     }
@@ -72,7 +84,7 @@ public class ConstraintRange {
           maxAcceleration, double maxDeceleration) {
     return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
             maxAcceleration) / 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
-            ((maxVelocity - endVelocity) / maxAcceleration) / 1000)
+            ((maxVelocity - endVelocity) / maxDeceleration) / 1000)
             < end.getX() - start.getX();
   }
 
@@ -113,11 +125,41 @@ public class ConstraintRange {
     return p1d;
   }
 
+  /**
+   * Checks if the constraints will lead to a triangular motion path. Distance units may be
+   * anything self consistent, but time must be in seconds.
+   *
+   * @param startVelocity the velocity at the start of the range
+   * @param endVelocity the velocity at the end of the range
+   * @param maxAcceleration the fastest the robot can accelerate
+   * @param maxDeceleration the fastest the robot can decelerate
+   * @return if the motion path will be triangular
+   */
+  private boolean isTriangularPath(double startVelocity, double endVelocity, double
+          maxAcceleration, double maxDeceleration) {
+    return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
+            maxAcceleration) / 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
+            ((maxVelocity - endVelocity) / maxDeceleration) / 1000)
+            < end.getX() - start.getX();
+  }
+
+  /**
+   * CURRENTLY NOT ACCURATE. SHOULD PRODUCE A SUB OPTIMAL PATH. Generates a motion path with a
+   * triangular shape. Distance unites may be anything self consistent, but time must be in seconds.
+   *
+   * @param startVelocity the starting velocity of the range
+   * @param endVelocity the ending velocity of the range
+   * @param maxAcceleration the maximum acceleration of the robot
+   * @param maxDeceleration the maximum deceleration of the robot
+   * @param startTime the time at the beginning of the range
+   * @return a motion path with the CURRENTLY SUBoptimal motion path and timestamps
+   */
   private Path1D generateTriangularPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration, int startTime) {
     Path1D p1d = new Path1D();
     p1d.addPoint(new Path1DPoint(startTime, startVelocity));
 
+    /*
     p1d.addPoint(new Path1DPoint(peakTime, peakVelocity));
 
     // startEq = startVelocity + maxAcceleration*x
@@ -126,6 +168,10 @@ public class ConstraintRange {
     // (startVelocity - endVelocity) / (-maxDecceleration - maxAcceleration) = x
 
     p1d.addPoint(new Path1DPoint(endTime, endVelocity));
+    */
+    p1d.addPoint(new Path1DPoint(startTime + 5000, endVelocity));
+
+    return p1d;
   }
 
   /**
