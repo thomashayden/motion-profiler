@@ -50,7 +50,7 @@ public class ConstraintRange {
               startTime);
     } else {
       System.err.println("None of the path options were chosen!");
-      System.exit(0);
+      System.exit(1);
       return null;
     }
   }
@@ -83,8 +83,8 @@ public class ConstraintRange {
   private boolean isTrapezoidalPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration) {
     return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
-            maxAcceleration) / 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
-            ((maxVelocity - endVelocity) / maxDeceleration) / 1000)
+            maxAcceleration) * 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
+            ((maxVelocity - endVelocity) / maxDeceleration) * 1000)
             < end.getX() - start.getX();
   }
 
@@ -106,6 +106,7 @@ public class ConstraintRange {
     p1d.addPoint(new Path1DPoint(startTime, startVelocity));
 
     int timeToAccel = (int) (((this.maxVelocity - startVelocity) / maxAcceleration) * 1000);
+    //System.out.println("tta:"+timeToAccel);
     int peakStartTime = timeToAccel + startTime;
     p1d.addPoint(new Path1DPoint(peakStartTime, this.maxVelocity));
 
@@ -113,13 +114,17 @@ public class ConstraintRange {
     double distanceCoveredAccel = distanceCovered(startVelocity, maxAcceleration, timeToAccel);
     double distanceCoveredDecel = distanceCovered(this.maxVelocity, -1 * maxDeceleration,
             timeToDecelerate);
+    //System.out.println("distanceCoveredAccel:"+distanceCoveredAccel);
+    //System.out.println("distanceCoveredDecel:"+distanceCoveredDecel);
     double remainingDistance = this.end.getX() - this.start.getX() - distanceCoveredAccel -
             distanceCoveredDecel;
-    System.out.println(remainingDistance);
+    //System.out.println(remainingDistance);
     int timeAtPeak = (int) ((remainingDistance * this.maxVelocity) * 1000);
+    //System.out.println("tap:"+timeAtPeak);
     int peakEndTime = peakStartTime + timeAtPeak;
     p1d.addPoint(new Path1DPoint(peakEndTime, this.maxVelocity));
 
+    //System.out.println("ttd:"+timeToDecelerate);
     int endTime = peakEndTime + timeToDecelerate;
     p1d.addPoint(new Path1DPoint(endTime, endVelocity));
 
@@ -139,9 +144,9 @@ public class ConstraintRange {
   private boolean isTriangularPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration) {
     return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
-            maxAcceleration) / 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
-            ((maxVelocity - endVelocity) / maxDeceleration) / 1000)
-            < end.getX() - start.getX();
+            maxAcceleration) * 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
+            ((maxVelocity - endVelocity) / maxDeceleration) * 1000)
+            > end.getX() - start.getX();
   }
 
   /**
@@ -157,22 +162,23 @@ public class ConstraintRange {
    */
   private Path1D generateTriangularPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration, int startTime) {
-    Path1D p1d = new Path1D();
-    p1d.addPoint(new Path1DPoint(startTime, startVelocity));
-
-    /*
-    p1d.addPoint(new Path1DPoint(peakTime, peakVelocity));
-
-    // startEq = startVelocity + maxAcceleration*x
-    // endEq   = endVelocity + -maxDecceleration*x +
-    // startVelocity - endVelocity = -maxDecceleration - maxAcceleration
-    // (startVelocity - endVelocity) / (-maxDecceleration - maxAcceleration) = x
-
-    p1d.addPoint(new Path1DPoint(endTime, endVelocity));
-    */
-    p1d.addPoint(new Path1DPoint(startTime + 5000, endVelocity));
-
-    return p1d;
+    if(endVelocity > startVelocity) {
+      double tmpVel = this.maxVelocity;
+      this.maxVelocity = endVelocity;
+      Path1D p1d = generateTrapezoidalPath(startVelocity, endVelocity, maxAcceleration,
+              maxDeceleration, startTime);
+      this.maxVelocity = tmpVel;
+      return p1d;
+    } else if(endVelocity < startVelocity) {
+      double tmpVel = this.maxVelocity;
+      this.maxVelocity = startVelocity;
+      Path1D p1d = generateTrapezoidalPath(startVelocity, endVelocity, maxAcceleration,
+              maxDeceleration, startTime);
+      this.maxVelocity = tmpVel;
+      return p1d;
+    } else {
+      return generateNoChangePath(startVelocity, startTime);
+    }
   }
 
   /**

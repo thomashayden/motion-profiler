@@ -46,18 +46,17 @@ public class TargetPositionPath {
       if(i == this.path.size()-1) {
         endVelocity = 0;
       } else {
-        endVelocity = this.path.get(i + 1).getMaxVelocity();
+        endVelocity = Math.min(this.path.get(i + 1).getMaxVelocity(),this.path.get(i).getMaxVelocity());
       }
       Path1D partPath1D = this.path.get(i).generatePath1D(startTime, startVelocity, endVelocity,
               maxAcceleration, maxDeceleration);
-      for (int j = 0; j < partPath1D.getPoints().size() - 1; j++) {
+      for (int j = 0; j < partPath1D.getPoints().size(); j++) {
         p1d.addPoint(partPath1D.getPoints().get(j));
       }
-      if(i == this.path.size()-1) {
-        p1d.addPoint(partPath1D.getPoints().get(partPath1D.getPoints().size()-1));
-      }
-      startTime = partPath1D.getPoints().get(i).getTime();
-      startVelocity = partPath1D.getPoints().get(i).getVelocity();
+      startTime = partPath1D.getPoints().get(partPath1D.getPoints().size()-1).getTime();
+      startVelocity = partPath1D.getPoints().get(partPath1D.getPoints().size()-1).getVelocity();
+      System.out.println("start time:"+startTime);
+      System.out.println("start velocity:"+startVelocity);
     }
     return p1d;
   }

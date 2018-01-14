@@ -18,8 +18,8 @@ public class TesterConstraintRange {
   }
 
   private static void testGenerateTrapezoidalPath() {
-    ConstraintRange cr = new ConstraintRange(new Position(10), new Position(100), 8);
-    for(Path1DPoint p : cr.generateTrapezoidalPath(0, 0, 3, 3, 0).getPoints()) {
+    ConstraintRange cr = new ConstraintRange(new Position(20), new Position(50), 8);
+    for(Path1DPoint p : cr.generateTrapezoidalPath(5, 8, 1, 2, 42500).getPoints()) {
       System.out.println(p.toString());
     }
   }
