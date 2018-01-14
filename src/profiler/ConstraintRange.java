@@ -62,10 +62,10 @@ public class ConstraintRange {
    * @param velocity the velocity the robot is traveling at
    * @return a motion path with constant velocity and timestamps
    */
-  private Path1D generateNoChangePath(double velocity, int startTime) {
+  public Path1D generateNoChangePath(double velocity, int startTime) {
     Path1D p1d = new Path1D();
     p1d.addPoint(new Path1DPoint(startTime, velocity));
-    int endTime = (int) (startTime + (velocity * (end.getX() - start.getX()))) * 1000;
+    int endTime = (int) (startTime + ((end.getX() - start.getX()) / velocity)) * 1000;
     p1d.addPoint(new Path1DPoint(endTime, velocity));
     return p1d;
   }
@@ -99,23 +99,24 @@ public class ConstraintRange {
    * @param startTime       the time at the start of the path
    * @return a motion path with the optimal trapezoidal motion path and timestamps
    */
-  private Path1D generateTrapezoidalPath(double startVelocity, double endVelocity,
+  public Path1D generateTrapezoidalPath(double startVelocity, double endVelocity,
                                          double maxAcceleration, double maxDeceleration,
                                          int startTime) {
     Path1D p1d = new Path1D();
     p1d.addPoint(new Path1DPoint(startTime, startVelocity));
 
-    int timeToAccel = (int) ((this.maxVelocity - startVelocity) / maxAcceleration) / 1000;
+    int timeToAccel = (int) (((this.maxVelocity - startVelocity) / maxAcceleration) * 1000);
     int peakStartTime = timeToAccel + startTime;
     p1d.addPoint(new Path1DPoint(peakStartTime, this.maxVelocity));
 
-    int timeToDecelerate = (int) ((this.maxVelocity - endVelocity) / maxDeceleration) / 1000;
+    int timeToDecelerate = (int) (((this.maxVelocity - endVelocity) / maxDeceleration) * 1000);
     double distanceCoveredAccel = distanceCovered(startVelocity, maxAcceleration, timeToAccel);
     double distanceCoveredDecel = distanceCovered(this.maxVelocity, -1 * maxDeceleration,
             timeToDecelerate);
     double remainingDistance = this.end.getX() - this.start.getX() - distanceCoveredAccel -
             distanceCoveredDecel;
-    int timeAtPeak = (int) (remainingDistance * this.maxVelocity);
+    System.out.println(remainingDistance);
+    int timeAtPeak = (int) ((remainingDistance * this.maxVelocity) * 1000);
     int peakEndTime = peakStartTime + timeAtPeak;
     p1d.addPoint(new Path1DPoint(peakEndTime, this.maxVelocity));
 

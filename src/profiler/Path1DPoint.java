@@ -22,4 +22,9 @@ public class Path1DPoint {
     return this.velocity;
   }
 
+  @Override
+  public String toString() {
+    return "time:"+time+",velocity:"+velocity;
+  }
+
 }
