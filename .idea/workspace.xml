@@ -4,8 +4,6 @@
     <list default="true" id="e207c4d3-83f8-44c5-aff5-512095b480da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/profiler/ConstraintRange.java" afterPath="$PROJECT_DIR$/src/profiler/ConstraintRange.java" />
-      <change beforePath="$PROJECT_DIR$/src/profiler/TargetPositionPath.java" afterPath="$PROJECT_DIR$/src/profiler/TargetPositionPath.java" />
-      <change beforePath="$PROJECT_DIR$/src/testing/RudementaryTester.java" afterPath="$PROJECT_DIR$/src/testing/RudementaryTester.java" />
       <change beforePath="$PROJECT_DIR$/src/testing/TesterConstraintRange.java" afterPath="$PROJECT_DIR$/src/testing/TesterConstraintRange.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -82,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RudementaryTester.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RudementaryTester.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/testing/RudementaryTester.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+            <state relative-caret-position="270">
+              <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConstraintRange.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConstraintRange.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/profiler/ConstraintRange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1532">
-              <caret line="148" column="13" lean-forward="false" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+            <state relative-caret-position="200">
+              <caret line="93" column="29" lean-forward="false" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
               <folding>
                 <element signature="e#669#670#0" expanded="true" />
                 <element signature="e#702#703#0" expanded="true" />
@@ -110,7 +108,7 @@
       <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/profiler/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
+            <state relative-caret-position="414">
               <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="e#189#190#0" expanded="true" />
@@ -126,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/src/testing/TesterConstraintRange.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+              <caret line="21" column="53" lean-forward="false" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#186#187#0" expanded="true" />
@@ -168,10 +166,10 @@
         <option value="$PROJECT_DIR$/src/profiler/Position.java" />
         <option value="$PROJECT_DIR$/src/profiler/Path1D.java" />
         <option value="$PROJECT_DIR$/src/profiler/Path1DPoint.java" />
-        <option value="$PROJECT_DIR$/src/testing/TesterConstraintRange.java" />
         <option value="$PROJECT_DIR$/src/profiler/TargetPositionPath.java" />
-        <option value="$PROJECT_DIR$/src/profiler/ConstraintRange.java" />
         <option value="$PROJECT_DIR$/src/testing/RudementaryTester.java" />
+        <option value="$PROJECT_DIR$/src/testing/TesterConstraintRange.java" />
+        <option value="$PROJECT_DIR$/src/profiler/ConstraintRange.java" />
       </list>
     </option>
   </component>
@@ -201,6 +199,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -230,9 +229,8 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -409,12 +407,13 @@
       <workItem from="1515875363401" duration="4373000" />
       <workItem from="1515883704471" duration="1184000" />
       <workItem from="1515889367122" duration="3463000" />
-      <workItem from="1515946591029" duration="4367000" />
+      <workItem from="1515946591029" duration="4416000" />
+      <workItem from="1516078503582" duration="2431000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26082000" />
+    <option name="totallyTimeSpent" value="28562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="2160" height="1370" extended-state="6" />
@@ -433,7 +432,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28145695" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28429517" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -995,19 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/profiler/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="e#189#190#0" expanded="true" />
-            <element signature="e#209#210#0" expanded="true" />
-            <element signature="e#337#338#0" expanded="true" />
-            <element signature="e#360#361#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/profiler/MotionProfiler1D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1022,7 +1008,7 @@
     <entry file="file://$PROJECT_DIR$/src/testing/TesterConstraintRange.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
-          <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+          <caret line="21" column="53" lean-forward="false" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#186#187#0" expanded="true" />
@@ -1031,19 +1017,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/profiler/Path1D.java">
+    <entry file="file://$PROJECT_DIR$/src/profiler/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="3" lean-forward="false" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+        <state relative-caret-position="414">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#121#122#0" expanded="true" />
-            <element signature="e#166#167#0" expanded="true" />
-            <element signature="e#214#215#0" expanded="true" />
-            <element signature="e#240#241#0" expanded="true" />
-            <element signature="e#285#286#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-            <element signature="e#357#358#0" expanded="true" />
-            <element signature="e#383#384#0" expanded="true" />
+            <element signature="e#189#190#0" expanded="true" />
+            <element signature="e#209#210#0" expanded="true" />
+            <element signature="e#337#338#0" expanded="true" />
+            <element signature="e#360#361#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1065,6 +1047,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/profiler/Path1D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="3" lean-forward="false" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+          <folding>
+            <element signature="e#121#122#0" expanded="true" />
+            <element signature="e#166#167#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+            <element signature="e#285#286#0" expanded="true" />
+            <element signature="e#310#311#0" expanded="true" />
+            <element signature="e#357#358#0" expanded="true" />
+            <element signature="e#383#384#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/profiler/TargetPositionPath.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -1076,23 +1075,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/RudementaryTester.java">
+    <entry file="file://$PROJECT_DIR$/src/profiler/ConstraintRange.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+        <state relative-caret-position="200">
+          <caret line="93" column="29" lean-forward="false" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#702#703#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/profiler/ConstraintRange.java">
+    <entry file="file://$PROJECT_DIR$/src/testing/RudementaryTester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1532">
-          <caret line="148" column="13" lean-forward="false" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+        <state relative-caret-position="270">
+          <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
           <folding>
-            <element signature="e#669#670#0" expanded="true" />
-            <element signature="e#702#703#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

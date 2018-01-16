@@ -63,6 +63,7 @@ public class ConstraintRange {
    * @return a motion path with constant velocity and timestamps
    */
   public Path1D generateNoChangePath(double velocity, int startTime) {
+    System.out.println("Generating No Change Path");
     Path1D p1d = new Path1D();
     p1d.addPoint(new Path1DPoint(startTime, velocity));
     int endTime = (int) (startTime + ((end.getX() - start.getX()) / velocity)) * 1000;
@@ -80,12 +81,19 @@ public class ConstraintRange {
    * @param maxDeceleration the fastest the robot can decelerate
    * @return if the motion path will be trapezoidal
    */
-  private boolean isTrapezoidalPath(double startVelocity, double endVelocity, double
+  public boolean isTrapezoidalPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration) {
-    return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
-            maxAcceleration) * 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
-            ((maxVelocity - endVelocity) / maxDeceleration) * 1000)
-            < end.getX() - start.getX();
+    if(startVelocity > this.maxVelocity || endVelocity > this.maxVelocity) {
+      return false;
+    }
+    double distanceCoveredAccel = distanceCovered(startVelocity, maxAcceleration, (int) (
+            (maxVelocity - startVelocity) / maxAcceleration) * 1000);
+    double distanceCoveredDecel = distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
+            ((maxVelocity - endVelocity) / maxDeceleration) * 1000);
+    System.out.println("alledged distanceCoveredAccel:"+distanceCoveredAccel);
+    System.out.println("alledged distanceCoveredDecel:"+distanceCoveredDecel);
+    double distanceAvailable = end.getX() - start.getX();
+    return distanceCoveredAccel + distanceCoveredDecel < distanceAvailable;
   }
 
   /**
@@ -102,11 +110,19 @@ public class ConstraintRange {
   public Path1D generateTrapezoidalPath(double startVelocity, double endVelocity,
                                          double maxAcceleration, double maxDeceleration,
                                          int startTime) {
+    System.out.println("Generating Trapezoidal Path");
+
+    if(startVelocity > this.maxVelocity || endVelocity > this.maxVelocity) {
+      System.err.println("startVelocity:"+startVelocity+",endVelocity:"+endVelocity+"," +
+              "maxVelocity:"+maxVelocity);
+      System.exit(1);
+    }
+
     Path1D p1d = new Path1D();
     p1d.addPoint(new Path1DPoint(startTime, startVelocity));
 
     int timeToAccel = (int) (((this.maxVelocity - startVelocity) / maxAcceleration) * 1000);
-    //System.out.println("tta:"+timeToAccel);
+    System.out.println("tta:"+timeToAccel);
     int peakStartTime = timeToAccel + startTime;
     p1d.addPoint(new Path1DPoint(peakStartTime, this.maxVelocity));
 
@@ -114,17 +130,17 @@ public class ConstraintRange {
     double distanceCoveredAccel = distanceCovered(startVelocity, maxAcceleration, timeToAccel);
     double distanceCoveredDecel = distanceCovered(this.maxVelocity, -1 * maxDeceleration,
             timeToDecelerate);
-    //System.out.println("distanceCoveredAccel:"+distanceCoveredAccel);
-    //System.out.println("distanceCoveredDecel:"+distanceCoveredDecel);
+    System.out.println("distanceCoveredAccel:"+distanceCoveredAccel);
+    System.out.println("distanceCoveredDecel:"+distanceCoveredDecel);
     double remainingDistance = this.end.getX() - this.start.getX() - distanceCoveredAccel -
             distanceCoveredDecel;
     //System.out.println(remainingDistance);
     int timeAtPeak = (int) ((remainingDistance * this.maxVelocity) * 1000);
-    //System.out.println("tap:"+timeAtPeak);
+    System.out.println("tap:"+timeAtPeak);
     int peakEndTime = peakStartTime + timeAtPeak;
     p1d.addPoint(new Path1DPoint(peakEndTime, this.maxVelocity));
 
-    //System.out.println("ttd:"+timeToDecelerate);
+    System.out.println("ttd:"+timeToDecelerate);
     int endTime = peakEndTime + timeToDecelerate;
     p1d.addPoint(new Path1DPoint(endTime, endVelocity));
 
@@ -143,10 +159,13 @@ public class ConstraintRange {
    */
   private boolean isTriangularPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration) {
-    return distanceCovered(startVelocity, maxAcceleration, (int) ((maxVelocity - startVelocity) /
-            maxAcceleration) * 1000) + distanceCovered(maxVelocity, -1 * maxDeceleration, (int)
-            ((maxVelocity - endVelocity) / maxDeceleration) * 1000)
-            > end.getX() - start.getX();
+    if(startVelocity > endVelocity) {
+      return distanceCovered(startVelocity, -1 * maxDeceleration, (int) (1000 * (startVelocity -
+              endVelocity) / maxDeceleration)) <= end.getX() - start.getX();
+    } else {
+      return distanceCovered(startVelocity, maxAcceleration, (int) (1000 * (endVelocity -
+              startVelocity) / maxAcceleration)) <= end.getX() - start.getX();
+    }
   }
 
   /**
@@ -162,32 +181,28 @@ public class ConstraintRange {
    */
   private Path1D generateTriangularPath(double startVelocity, double endVelocity, double
           maxAcceleration, double maxDeceleration, int startTime) {
-    if(endVelocity > startVelocity) {
-      double tmpVel = this.maxVelocity;
-      this.maxVelocity = endVelocity;
-      Path1D p1d = generateTrapezoidalPath(startVelocity, endVelocity, maxAcceleration,
-              maxDeceleration, startTime);
-      this.maxVelocity = tmpVel;
-      return p1d;
-    } else if(endVelocity < startVelocity) {
-      double tmpVel = this.maxVelocity;
-      this.maxVelocity = startVelocity;
-      Path1D p1d = generateTrapezoidalPath(startVelocity, endVelocity, maxAcceleration,
-              maxDeceleration, startTime);
-      this.maxVelocity = tmpVel;
-      return p1d;
+    System.out.println("WARNING: Triangular path generated");
+
+    Path1D p1d = new Path1D();
+    if(startVelocity > endVelocity) {
+      p1d.addPoint(new Path1DPoint(startTime, startVelocity));
+      int timeToDecelerate = (int) (1000 * (startVelocity - endVelocity) / maxDeceleration);
+      p1d.addPoint(new Path1DPoint(startTime + timeToDecelerate, endVelocity));
     } else {
-      return generateNoChangePath(startVelocity, startTime);
+      p1d.addPoint(new Path1DPoint(startTime, startVelocity));
+      int timeToAccelerate = (int) (1000 * (endVelocity - startVelocity) / maxAcceleration);
+      p1d.addPoint(new Path1DPoint(startTime + timeToAccelerate, endVelocity));
     }
+    return p1d;
   }
 
   /**
    * Calculates the total distance covered while the robot is under acceleration. Distance units
-   * may be anything self consistent, but time must be in seconds.
+   * may be anything self consistent, but time must be in milliseconds.
    *
    * @param initialVelocity the velocity at the beginning of the movement
    * @param acceleration    the acceleration of the robot
-   * @param time            the time under acceleration
+   * @param time            the time under acceleration in milliseconds
    * @return the total distance covered
    */
   private double distanceCovered(double initialVelocity, double acceleration, int time) {
